@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Data.Entity;
+using cs_semestral_project.Dialogs;
 
 namespace cs_semestral_project
 {
@@ -33,7 +34,6 @@ namespace cs_semestral_project
         private void OnWindowLoad(object sender, RoutedEventArgs e)
         {
             LoadHotels();
-            System.Windows.Data.CollectionViewSource reservationViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("reservationViewSource")));
         }
 
         /// <summary>
@@ -93,5 +93,57 @@ namespace cs_semestral_project
                 LoadReservations(((room)e.AddedItems[0]).room_id);
             }
         }
+
+        /// <summary>
+        /// On user edits row
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnEndEditRowReservation(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            if (e.EditAction != DataGridEditAction.Commit)
+            {
+                return;
+            }
+            reservation res = (reservation)e.Row.DataContext;
+            res.room_id = (int)roomDropdown.SelectedValue;
+            if (context.reservation.Find(res.reservation_id) == null)
+            {
+                context.reservation.Add(res);
+            }
+            context.SaveChanges();
+            LoadReservations((int)roomDropdown.SelectedValue);
+        }
+
+        /// <summary>
+        /// Invoked when user clicks add hotel button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnAddHotel(object sender, RoutedEventArgs e)
+        {
+            AddHotelWindow window = new AddHotelWindow(context) { Owner = this };
+            window.ShowDialog();
+            LoadHotels();
+        }
+
+        /// <summary>
+        /// Invoked when user click edit hotel button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnEditHotel(object sender, RoutedEventArgs e)
+        {
+            if (!IsHotelSelected)
+            {
+                // TODO Message box
+                return;
+            }
+            AddHotelWindow window = new AddHotelWindow(context, (int)hotelsDropdown.SelectedValue) { Owner = this };
+            window.ShowDialog();
+            LoadHotels();
+        }
+
+        private bool IsHotelSelected => hotelsDropdown.SelectedIndex != -1;
     }
 }

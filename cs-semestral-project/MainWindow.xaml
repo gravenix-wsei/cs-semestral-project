@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         xmlns:local="clr-namespace:cs_semestral_project"
         x:Class="cs_semestral_project.MainWindow"
-        Title="Rezervacje hotelowe" Height="456.468" Width="946.92" Loaded="OnWindowLoad">
+        Title="Rezerwacje hotelowe" Height="456.468" Width="946.92" Loaded="OnWindowLoad">
     <Window.Resources>
         <CollectionViewSource x:Key="hotelViewSource" d:DesignSource="{d:DesignInstance {x:Type local:hotel}, CreateList=True}"/>
         <CollectionViewSource x:Key="roomViewSource" d:DesignSource="{d:DesignInstance {x:Type local:room}, CreateList=True}"/>
@@ -30,14 +30,15 @@
             </Grid.RowDefinitions>
             <ComboBox Height="40" Margin="5,0,5,0" x:Name="hotelsDropdown" VerticalContentAlignment="Center" SelectedValuePath="hotel_id" ItemsSource="{Binding}" DisplayMemberPath="name" SelectionChanged="OnHotelChange" />
             <ComboBox x:Name="roomDropdown" Grid.Row="1" Height="40" Margin="5,0,5,0" DisplayMemberPath="name" SelectedValuePath="room_id" VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource roomViewSource}}" SelectionChanged="OnRoomChange" />
-            <Button Grid.Column="1" Height="40" Width="100" Content="Dodaj"  />
-            <Button Grid.Column="2" Height="40" Width="100" Content="Edytuj" />
+            <Button Grid.Column="1" Height="40" Width="100" Content="Dodaj" Click="OnAddHotel"  />
+            <Button Grid.Column="2" Height="40" Width="100" Content="Edytuj" Click="OnEditHotel" />
             <Button Grid.Column="3" Height="40" Width="100" Content="Usuń"  />
             <Button Grid.Column="1" Height="40" Width="100" Content="Dodaj" Grid.Row="1"  />
             <Button Grid.Column="2" Height="40" Width="100" Content="Edytuj" Grid.Row="1"  />
             <Button Grid.Column="3" Height="40" Width="100" Content="Usuń" Grid.Row="1" />
         </Grid>
-        <DataGrid x:Name="reservationsGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" Grid.Row="1" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" ItemsSource="{Binding}" >
+        <DataGrid x:Name="reservationsGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" Grid.Row="1" RowEditEnding="OnEndEditRowReservation"
+                  RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="True" ItemsSource="{Binding}" VerticalScrollBarVisibility="Auto" >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="reservation_idColumn" Binding="{Binding reservation_id}" Header="ID" Width="1*" IsReadOnly="True">
                     <DataGridTextColumn.ElementStyle>
@@ -46,14 +47,14 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn x:Name="firstnameColumn" Binding="{Binding firstname}" Header="Imię" Width="3*">
+                <DataGridTextColumn x:Name="firstnameColumn" Binding="{Binding firstname, UpdateSourceTrigger=PropertyChanged}" Header="Imię" Width="3*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="VerticalAlignment" Value="Center" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn x:Name="lastnameColumn" Binding="{Binding lastname}" Header="Nazwisko" Width="3*">
+                <DataGridTextColumn x:Name="lastnameColumn" Binding="{Binding lastname, UpdateSourceTrigger=PropertyChanged}" Header="Nazwisko" Width="3*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="VerticalAlignment" Value="Center" />
@@ -63,14 +64,14 @@
                 <DataGridTemplateColumn x:Name="date_fromColumn" Header="Od" Width="2*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <DatePicker SelectedDate="{Binding date_from, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                            <DatePicker SelectedDate="{Binding date_from, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn x:Name="date_toColumn" Header="Do" Width="2*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <DatePicker SelectedDate="{Binding date_to, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                            <DatePicker SelectedDate="{Binding date_to, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
