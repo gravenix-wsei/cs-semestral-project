@@ -34,15 +34,50 @@ namespace cs_semestral_project
             this.DataContext = this;
         }
 
+        /// <summary>
+        /// Invoked when window loads
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnWindowLoad(object sender, RoutedEventArgs e)
         {
             ReloadHotels();
         }
 
+        /// <summary>
+        /// Reloads hotels and sets first room as selected, if hotel has any
+        /// </summary>
         private void ReloadHotels()
         {
             context.hotel.Load();
             hotelViewSource.Source = context.hotel.Local;
+            var hotel = context.hotel.Local.First();
+            if (hotel != null)
+            {
+                LoadRooms(hotel.hotel_id);
+            }
+        }
+
+        /// <summary>
+        /// Reloads rooms dropdown for hotel
+        /// </summary>
+        /// <param name="hotelId">selected hotel id</param>
+        private void LoadRooms(int hotelId)
+        {
+            roomViewSource.Source = (from room in context.room where room.hotel_id == hotelId select room).ToList();
+        }
+
+        /// <summary>
+        /// Invoked when hotel dropdown changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnHotelChange(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                LoadRooms(((hotel)e.AddedItems[0]).hotel_id);
+            }
         }
     }
 }
