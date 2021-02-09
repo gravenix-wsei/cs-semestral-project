@@ -1,0 +1,57 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Class="cs_semestral_project.MainWindow"
+        Title="Rezervacje hotelowe" Height="456.468" Width="946.92">
+    <Grid Margin="8,8,8,8" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid Height="120" VerticalAlignment="Top" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <ComboBox Height="40" Margin="5,0,5,0" DisplayMemberPath="name" SelectedValuePath="hotel_id" x:Name="hotelsDropdown" VerticalContentAlignment="Center" />
+            <ComboBox x:Name="roomDropdown" Grid.Row="1" Height="40" Margin="5,0,5,0" DisplayMemberPath="name" SelectedValuePath="hotel_id" VerticalContentAlignment="Center" ItemsSource="{Binding}" />
+            <Button Grid.Column="1" Height="40" Width="100" Content="Dodaj"  />
+            <Button Grid.Column="2" Height="40" Width="100" Content="Edytuj" />
+            <Button Grid.Column="3" Height="40" Width="100" Content="Usuń"  />
+            <Button Grid.Column="1" Height="40" Width="100" Content="Dodaj" Grid.Row="1"  />
+            <Button Grid.Column="2" Height="40" Width="100" Content="Edytuj" Grid.Row="1"  />
+            <Button Grid.Column="3" Height="40" Width="100" Content="Usuń" Grid.Row="1" />
+        </Grid>
+        <DataGrid x:Name="reservationsGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" Grid.Row="1" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="reservation_idColumn" Binding="{Binding reservation_id}" Header="ID" Width="1*" IsReadOnly="True"/>
+                <DataGridTextColumn x:Name="firstnameColumn" Binding="{Binding firstname}" Header="Imię" Width="3*"/>
+                <DataGridTextColumn x:Name="lastnameColumn" Binding="{Binding lastname}" Header="Nazwisko" Width="3*"/>
+                <DataGridTemplateColumn x:Name="date_fromColumn" Header="Od" Width="2*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding date_from, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="date_toColumn" Header="Do" Width="2*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding date_to, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="2" Width="100" Height="25" Content="Dodaj rezerwację..."></Button>
+    </Grid>
+</Window>
