@@ -3,15 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:local="clr-namespace:cs_semestral_project"
         x:Class="cs_semestral_project.MainWindow"
-        Title="Rezervacje hotelowe" Height="456.468" Width="946.92">
+        Title="Rezervacje hotelowe" Height="456.468" Width="946.92" Loaded="OnWindowLoad">
+    <Window.Resources>
+        <CollectionViewSource x:Key="hotelViewSource" d:DesignSource="{d:DesignInstance {x:Type local:hotel}, CreateList=True}"/>
+        <CollectionViewSource x:Key="roomViewSource" d:DesignSource="{d:DesignInstance {x:Type local:room}, CreateList=True}"/>
+    </Window.Resources>
     <Grid Margin="8,8,8,8" >
         <Grid.RowDefinitions>
             <RowDefinition Height="120" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
-        <Grid Height="120" VerticalAlignment="Top" >
+        <Grid Height="120" VerticalAlignment="Top" DataContext="{StaticResource hotelViewSource}" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="1*" />
@@ -22,8 +28,8 @@
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
-            <ComboBox Height="40" Margin="5,0,5,0" DisplayMemberPath="name" SelectedValuePath="hotel_id" x:Name="hotelsDropdown" VerticalContentAlignment="Center" />
-            <ComboBox x:Name="roomDropdown" Grid.Row="1" Height="40" Margin="5,0,5,0" DisplayMemberPath="name" SelectedValuePath="hotel_id" VerticalContentAlignment="Center" ItemsSource="{Binding}" />
+            <ComboBox Height="40" Margin="5,0,5,0" x:Name="hotelsDropdown" VerticalContentAlignment="Center" SelectedValuePath="description" ItemsSource="{Binding}" DisplayMemberPath="name" />
+            <ComboBox x:Name="roomDropdown" Grid.Row="1" Height="40" Margin="5,0,5,0" DisplayMemberPath="description" SelectedValuePath="description" VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource roomViewSource}}" />
             <Button Grid.Column="1" Height="40" Width="100" Content="Dodaj"  />
             <Button Grid.Column="2" Height="40" Width="100" Content="Edytuj" />
             <Button Grid.Column="3" Height="40" Width="100" Content="Usuń"  />
@@ -52,6 +58,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="2" Width="100" Height="25" Content="Dodaj rezerwację..."></Button>
+        <Button Grid.Row="2" Width="100" Height="25" Content="Dodaj rezerwację..."/>
     </Grid>
 </Window>

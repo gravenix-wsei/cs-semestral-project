@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
+using System.Windows.Data;
 
 namespace cs_semestral_project
 {
@@ -21,10 +23,26 @@ namespace cs_semestral_project
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly HotelDatabaseEntities context = new HotelDatabaseEntities();
+        private readonly CollectionViewSource hotelViewSource;
+        private readonly CollectionViewSource roomViewSource;
         public MainWindow()
         {
             InitializeComponent();
+            hotelViewSource = (CollectionViewSource)FindResource("hotelViewSource");
+            roomViewSource = (CollectionViewSource)FindResource("roomViewSource");
             this.DataContext = this;
+        }
+
+        private void OnWindowLoad(object sender, RoutedEventArgs e)
+        {
+            ReloadHotels();
+        }
+
+        private void ReloadHotels()
+        {
+            context.hotel.Load();
+            hotelViewSource.Source = context.hotel.Local;
         }
     }
 }
