@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Data;
 using System.Data.Entity;
 
 namespace cs_semestral_project.Dialogs
@@ -24,7 +23,7 @@ namespace cs_semestral_project.Dialogs
         private readonly HotelDatabaseEntities context;
         private readonly CollectionViewSource hotelSource;
         private readonly CollectionViewSource addressSource;
-        private readonly int hotelId = -1;
+        private readonly hotel hotelObj;
         public AddHotelWindow(HotelDatabaseEntities context)
         {
             InitializeComponent();
@@ -37,9 +36,9 @@ namespace cs_semestral_project.Dialogs
         /// Invoke when you want to edit hotel
         /// </summary>
         /// <param name="hotelId">id of hotel to edit</param>
-        public AddHotelWindow(HotelDatabaseEntities context, int hotelId) : this(context)
+        public AddHotelWindow(HotelDatabaseEntities context, hotel hotelObj) : this(context)
         {
-            this.hotelId = hotelId;
+            this.hotelObj = hotelObj;
         }
 
         /// <summary>
@@ -59,12 +58,24 @@ namespace cs_semestral_project.Dialogs
         /// <param name="e"></param>
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            if (hotelId != -1)
+            if (hotelObj != null)
             {
-                hotel hotel = context.hotel.Find(hotelId);
-                hotelGrid.DataContext = hotel;
-                addressGrid.DataContext = hotel.address;
+                hotelGrid.DataContext = hotelObj;
             }
+        }
+
+        /// <summary>
+        /// Invoked when user clicks OK in dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnOKButton(object sender, RoutedEventArgs e)
+        {
+            if (hotelObj == null)
+            {
+                context.hotel.Add((hotel)hotelGrid.DataContext);
+            }
+            context.SaveChanges();
         }
     }
 }

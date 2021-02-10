@@ -139,7 +139,7 @@ namespace cs_semestral_project
                 // TODO Message box
                 return;
             }
-            AddHotelWindow window = new AddHotelWindow(context, (int)hotelsDropdown.SelectedValue) { Owner = this };
+            AddHotelWindow window = new AddHotelWindow(context, (hotel)hotelsDropdown.SelectedItem) { Owner = this };
             window.ShowDialog();
             LoadHotels();
         }
