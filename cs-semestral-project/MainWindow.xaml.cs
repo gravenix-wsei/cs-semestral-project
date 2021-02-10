@@ -150,6 +150,27 @@ namespace cs_semestral_project
             LoadHotels();
         }
 
+        private void OnAddRoom(object sender, RoutedEventArgs e)
+        {
+            AddRoomWindow window = new AddRoomWindow(context, SelectedHotelId) { Owner = this };
+            window.ShowDialog();
+            LoadRooms(SelectedHotelId);
+        }
+
+        private void OnEditRoom(object sender, RoutedEventArgs e)
+        {
+            if (!IsRoomSelected)
+            {
+                // TODO Message Box
+                return;
+            }
+            AddRoomWindow window = new AddRoomWindow(context, SelectedHotelId, (room)roomDropdown.SelectedItem) { Owner = this };
+            window.ShowDialog();
+            LoadRooms(SelectedHotelId);
+        }
+
         private bool IsHotelSelected => hotelsDropdown.SelectedIndex != -1;
+        private bool IsRoomSelected => roomDropdown.SelectedIndex != -1;
+        private int SelectedHotelId => ((hotel)hotelsDropdown.SelectedItem).hotel_id;
     }
 }

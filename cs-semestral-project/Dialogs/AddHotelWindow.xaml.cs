@@ -42,16 +42,6 @@ namespace cs_semestral_project.Dialogs
         }
 
         /// <summary>
-        /// Invoked when user clicks cancel button
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnCancelButton(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        /// <summary>
         /// Invoked when window is loaded
         /// </summary>
         /// <param name="sender"></param>
@@ -82,6 +72,16 @@ namespace cs_semestral_project.Dialogs
                 context.hotel.Add((hotel)hotelGrid.DataContext);
             }
             context.SaveChanges();
+            Close();
+        }
+
+        /// <summary>
+        /// Invoked when user clicks cancel button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnCancelButton(object sender, RoutedEventArgs e)
+        {
             Close();
         }
     }

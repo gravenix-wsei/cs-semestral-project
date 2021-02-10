@@ -1,0 +1,57 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:cs_semestral_project.Dialogs"
+        xmlns:cs_semestral_project="clr-namespace:cs_semestral_project"
+        x:Class="cs_semestral_project.Dialogs.AddRoomWindow"
+        mc:Ignorable="d"
+        Title="Edycja Pokoju" Height="401.027" Width="417.454" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="roomViewSource" d:DesignSource="{d:DesignInstance {x:Type cs_semestral_project:room}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="roomGrid" DataContext="{StaticResource roomViewSource}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="310" Width="389">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Nazwa pokoju:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="nameTextBox" Grid.Column="1" Height="24" Margin="10,14,10,14" Grid.Row="0" Text="{Binding name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" />
+            <Label Content="Opis:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+            <TextBox x:Name="descriptionTextBox" Grid.Column="1" MinHeight="150" Margin="10,0,10,0" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Grid.Row="1" Text="{Binding description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" />
+            <Label Content="Ilość osób:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+            <ComboBox x:Name="sizeComboBox" Grid.Column="1" Height="24" Margin="10,0,10,0" Grid.Row="2" VerticalAlignment="Center" SelectedIndex="{Binding size, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" >
+                <ComboBoxItem Content="-- Wybierz ilość osób --" />
+                <ComboBoxItem Content="1" />
+                <ComboBoxItem Content="2" />
+                <ComboBoxItem Content="3" />
+                <ComboBoxItem Content="4" />
+                <ComboBoxItem Content="5" />
+                <ComboBoxItem Content="6" />
+                <ComboBoxItem Content="7" />
+                <ComboBoxItem Content="8" />
+                <ComboBoxItem Content="9" />
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="okButton" Content="OK" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Width="75" Click="OnOKButton" />
+            <Button Content="Anuluj" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Width="75" Click="OnCancelButton"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -88,6 +88,9 @@
     <Compile Include="Dialogs\AddHotelWindow.xaml.cs">
       <DependentUpon>AddHotelWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\AddRoomWindow.xaml.cs">
+      <DependentUpon>AddRoomWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="hotel.cs">
       <DependentUpon>HotelModel.tt</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
       <DependentUpon>HotelModel.tt</DependentUpon>
     </Compile>
     <Page Include="Dialogs\AddHotelWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AddRoomWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
