@@ -32,7 +32,7 @@
             <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Opis:"/>
             <TextBox x:Name="descriptionTextBox" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="10,0,10,0" Grid.Column="1" Height="Auto" MinHeight="65" VerticalAlignment="Center"/>
             <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Adres:"/>
-            <Grid Margin="10,10,10,10" Grid.Row="2" Grid.Column="1" DataContext="{Binding address}">
+            <Grid Margin="10,10,10,10" Grid.Row="2" Grid.Column="1" DataContext="{Binding address, Mode=TwoWay}" x:Name="addressGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />

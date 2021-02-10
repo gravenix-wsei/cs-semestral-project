@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Data.Entity;
 using cs_semestral_project.Dialogs;
+using System.Collections.Generic;
 
 namespace cs_semestral_project
 {
@@ -56,7 +57,12 @@ namespace cs_semestral_project
         /// <param name="hotelId">selected hotel id</param>
         private void LoadRooms(int hotelId)
         {
-            roomViewSource.Source = (from room in context.room where room.hotel_id == hotelId select room).ToList();
+            var list = (from room in context.room where room.hotel_id == hotelId select room).ToList();
+            roomViewSource.Source = list;
+            if(list.Count == 0)
+            {
+                reservationsGrid.ItemsSource = new List<reservation>();
+            }
         }
 
         /// <summary>

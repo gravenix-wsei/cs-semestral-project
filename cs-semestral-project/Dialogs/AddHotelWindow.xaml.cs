@@ -62,6 +62,12 @@ namespace cs_semestral_project.Dialogs
             {
                 hotelGrid.DataContext = hotelObj;
             }
+            else
+            {
+                var h = new hotel();
+                h.address = new address();
+                hotelGrid.DataContext = h;
+            }
         }
 
         /// <summary>
@@ -76,6 +82,7 @@ namespace cs_semestral_project.Dialogs
                 context.hotel.Add((hotel)hotelGrid.DataContext);
             }
             context.SaveChanges();
+            Close();
         }
     }
 }
