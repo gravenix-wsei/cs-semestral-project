@@ -42,12 +42,17 @@ namespace cs_semestral_project
         /// </summary>
         private void LoadHotels()
         {
-            context.hotel.Load();
-            hotelViewSource.Source = context.hotel.Local;
-            var hotel = context.hotel.Local.First();
-            if (hotel != null)
+            var list = (from hotel in context.hotel select hotel).ToList();
+            hotelViewSource.Source = list;
+            if (list.Count > 0)
             {
-                LoadRooms(hotel.hotel_id);
+                LoadRooms(list.First().hotel_id);
+            }
+            else
+            {
+                roomViewSource.Source = new List<room>();
+                reservationViewSource.Source= new List<reservation>();
+                reservationsGrid.IsReadOnly = true;
             }
         }
 
@@ -61,7 +66,12 @@ namespace cs_semestral_project
             roomViewSource.Source = list;
             if(list.Count == 0)
             {
-                reservationsGrid.ItemsSource = new List<reservation>();
+                reservationViewSource.Source = new List<reservation>();
+                reservationsGrid.IsReadOnly = true;
+            }
+            else
+            {
+                reservationsGrid.IsReadOnly = false;
             }
         }
 
@@ -150,13 +160,28 @@ namespace cs_semestral_project
             LoadHotels();
         }
 
+        /// <summary>
+        /// Invoked when users clicks on add room button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnAddRoom(object sender, RoutedEventArgs e)
         {
+            if (!IsHotelSelected)
+            {
+                // TODO Message Box
+                return;
+            }
             AddRoomWindow window = new AddRoomWindow(context, SelectedHotelId) { Owner = this };
             window.ShowDialog();
             LoadRooms(SelectedHotelId);
         }
 
+        /// <summary>
+        /// Invoked when user clicks on edit room button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnEditRoom(object sender, RoutedEventArgs e)
         {
             if (!IsRoomSelected)
@@ -166,6 +191,42 @@ namespace cs_semestral_project
             }
             AddRoomWindow window = new AddRoomWindow(context, SelectedHotelId, (room)roomDropdown.SelectedItem) { Owner = this };
             window.ShowDialog();
+            LoadRooms(SelectedHotelId);
+        }
+
+        /// <summary>
+        /// Invoked when user clicks delete hotel button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnDeleteHotel(object sender, RoutedEventArgs e)
+        {
+            if (!IsHotelSelected) 
+            {
+                // TODO Message Box
+                return;
+            }
+            if (MessageBox.Show("Czy na pewno chcesz usunąć ten hotel?", "Pytanie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) return;
+            context.hotel.Remove((hotel)hotelsDropdown.SelectedItem);
+            context.SaveChanges();
+            LoadHotels();
+        }
+
+        /// <summary>
+        /// Invoked when user clicks delete room button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnDeleteRoom(object sender, RoutedEventArgs e)
+        {
+            if (!IsRoomSelected)
+            {
+                // TODO Message Box
+                return;
+            }
+            if (MessageBox.Show("Czy na pewno chcesz usunąć ten pokój?", "Pytanie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) return;
+            context.room.Remove((room)roomDropdown.SelectedItem);
+            context.SaveChanges();
             LoadRooms(SelectedHotelId);
         }
 

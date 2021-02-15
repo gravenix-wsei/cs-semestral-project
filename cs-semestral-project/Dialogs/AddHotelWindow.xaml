@@ -53,6 +53,7 @@
             </Grid>
             <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Gwiazdki:"/>
             <ComboBox x:Name="starsDropdown" Height="25" SelectedIndex="{Binding stars, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="10,0,10,0" Grid.Column="1">
+                <ComboBoxItem Content="-- Wybierz Gwiazdki --" />
                 <ComboBoxItem Content="⭐" />
                 <ComboBoxItem Content="⭐⭐" />
                 <ComboBoxItem Content="⭐⭐⭐" />
