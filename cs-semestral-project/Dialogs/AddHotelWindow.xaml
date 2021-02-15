@@ -6,7 +6,7 @@
         x:Class="cs_semestral_project.Dialogs.AddHotelWindow"
         mc:Ignorable="d"
         xmlns:local="clr-namespace:cs_semestral_project"
-        Title="Edycja Hotelu" Height="425.974" Width="524.744" ResizeMode="NoResize" ShowInTaskbar="False" Loaded="OnWindowLoaded">
+        Title="Edycja Hotelu" Height="425.974" Width="524.744" ShowInTaskbar="False" Loaded="OnWindowLoaded" WindowStyle="ToolWindow">
     <Window.Resources>
         <CollectionViewSource x:Key="hotelViewSource" d:DesignSource="{d:DesignInstance {x:Type local:hotel}, CreateList=True}"/>
         <CollectionViewSource x:Key="addressViewSource" d:DesignSource="{d:DesignInstance {x:Type local:address}, CreateList=True}"/>

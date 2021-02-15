@@ -7,7 +7,7 @@
         xmlns:cs_semestral_project="clr-namespace:cs_semestral_project"
         x:Class="cs_semestral_project.Dialogs.AddRoomWindow"
         mc:Ignorable="d"
-        Title="Edycja Pokoju" Height="401.027" Width="417.454" Loaded="Window_Loaded">
+        Title="Edycja Pokoju" Height="401.027" Width="417.454" Loaded="Window_Loaded" ShowInTaskbar="False" WindowStyle="ToolWindow">
     <Window.Resources>
         <CollectionViewSource x:Key="roomViewSource" d:DesignSource="{d:DesignInstance {x:Type cs_semestral_project:room}, CreateList=True}"/>
     </Window.Resources>
@@ -16,7 +16,7 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <Grid x:Name="roomGrid" DataContext="{StaticResource roomViewSource}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="310" Width="389">
+        <Grid x:Name="roomGrid" DataContext="{StaticResource roomViewSource}" Margin="10,10,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
