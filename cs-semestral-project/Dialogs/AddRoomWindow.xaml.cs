@@ -18,7 +18,7 @@ namespace cs_semestral_project.Dialogs
     /// <summary>
     /// Logika interakcji dla klasy AddRoomWindow.xaml
     /// </summary>
-    public partial class AddRoomWindow : Window
+    public partial class AddRoomWindow : Window, IValidable
     {
         private readonly HotelDatabaseEntities context;
         private readonly CollectionViewSource roomViewSource;
@@ -71,12 +71,28 @@ namespace cs_semestral_project.Dialogs
         /// <param name="e"></param>
         private void OnOKButton(object sender, RoutedEventArgs e)
         {
+            if (!Validate())
+            {
+                MessageBox.Show("Wprowadzono niepoprawne dane, zweryfikuj je!", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (roomObj == null)
             {
                 context.room.Add((room)roomGrid.DataContext);
             }
             context.SaveChanges();
             Close();
+        }
+
+        /// <summary>
+        /// Validates room data
+        /// </summary>
+        /// <returns></returns>
+        public bool Validate()
+        {
+            int nameLength = nameTextBox.Text.Length;
+            int size = sizeComboBox.SelectedIndex;
+            return nameLength > 0 && nameLength < 250 && size > 0;
         }
     }
 }

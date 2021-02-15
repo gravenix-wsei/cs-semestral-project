@@ -91,6 +91,7 @@
     <Compile Include="Dialogs\AddRoomWindow.xaml.cs">
       <DependentUpon>AddRoomWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\IValidable.cs" />
     <Compile Include="hotel.cs">
       <DependentUpon>HotelModel.tt</DependentUpon>
     </Compile>

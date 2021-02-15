@@ -19,8 +19,8 @@ namespace cs_semestral_project
         public string firstname { get; set; }
         public string lastname { get; set; }
         public Nullable<int> id_address_customer { get; set; }
-        public System.DateTime date_from { get; set; }
-        public System.DateTime date_to { get; set; }
+        public System.DateTime date_from { get; set; } = DateTime.Now;
+        public System.DateTime date_to { get; set; } = DateTime.Now;
     
         public virtual address address { get; set; }
         public virtual room room { get; set; }

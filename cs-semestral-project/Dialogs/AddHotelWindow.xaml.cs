@@ -18,7 +18,7 @@ namespace cs_semestral_project.Dialogs
     /// <summary>
     /// Logika interakcji dla klasy AddHotelWindow.xaml
     /// </summary>
-    public partial class AddHotelWindow : Window
+    public partial class AddHotelWindow : Window, IValidable
     {
         private readonly HotelDatabaseEntities context;
         private readonly CollectionViewSource hotelSource;
@@ -67,6 +67,11 @@ namespace cs_semestral_project.Dialogs
         /// <param name="e"></param>
         private void OnOKButton(object sender, RoutedEventArgs e)
         {
+            if (!Validate())
+            {
+                MessageBox.Show("Wprowadzono niepoprawne dane, zweryfikuj je!", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (hotelObj == null)
             {
                 context.hotel.Add((hotel)hotelGrid.DataContext);
@@ -83,6 +88,31 @@ namespace cs_semestral_project.Dialogs
         private void OnCancelButton(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        /// <summary>
+        /// Validates values for hotel
+        /// </summary>
+        /// <returns></returns>
+        public bool Validate()
+        {
+            int nameLength = nameTextBox.Text.Length;
+            int addressLength = addressInput.Text.Length;
+            int postcodeLength = postCodeInput.Text.Length;
+            int cityLength = cityInput.Text.Length;
+            int phoneLength = phoneInput.Text.Length;
+            int stars = starsDropdown.SelectedIndex;
+            if (stars < 1)
+            {
+                MessageBox.Show("Wybierz ocenę hotelu", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            bool returnValue = nameLength > 0 && nameLength < 250;
+            returnValue &= addressLength > 0 && addressLength < 60;
+            returnValue &= postcodeLength > 0 && postcodeLength < 7;
+            returnValue &= cityLength > 0 && cityLength < 40;
+            returnValue &= phoneLength > 0 && phoneLength < 12;
+            return returnValue;
         }
     }
 }
