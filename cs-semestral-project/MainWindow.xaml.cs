@@ -152,7 +152,7 @@ namespace cs_semestral_project
         {
             if (!IsHotelSelected)
             {
-                // TODO Message box
+                MessageBox.Show("Najpierw wybierz hotel", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             AddHotelWindow window = new AddHotelWindow(context, (hotel)hotelsDropdown.SelectedItem) { Owner = this };
@@ -169,7 +169,7 @@ namespace cs_semestral_project
         {
             if (!IsHotelSelected)
             {
-                // TODO Message Box
+                MessageBox.Show("Najpierw wybierz hotel", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             AddRoomWindow window = new AddRoomWindow(context, SelectedHotelId) { Owner = this };
@@ -186,7 +186,7 @@ namespace cs_semestral_project
         {
             if (!IsRoomSelected)
             {
-                // TODO Message Box
+                MessageBox.Show("Najpierw wybierz pokój", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             AddRoomWindow window = new AddRoomWindow(context, SelectedHotelId, (room)roomDropdown.SelectedItem) { Owner = this };
@@ -201,9 +201,9 @@ namespace cs_semestral_project
         /// <param name="e"></param>
         private void OnDeleteHotel(object sender, RoutedEventArgs e)
         {
-            if (!IsHotelSelected) 
+            if (!IsHotelSelected)
             {
-                // TODO Message Box
+                MessageBox.Show("Najpierw wybierz hotel", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (MessageBox.Show("Czy na pewno chcesz usunąć ten hotel?", "Pytanie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) return;
@@ -221,7 +221,7 @@ namespace cs_semestral_project
         {
             if (!IsRoomSelected)
             {
-                // TODO Message Box
+                MessageBox.Show("Najpierw wybierz pokój", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (MessageBox.Show("Czy na pewno chcesz usunąć ten pokój?", "Pytanie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) return;
